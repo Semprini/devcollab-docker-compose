@@ -1,0 +1,29 @@
+version: '2'
+services:
+  bamboo:
+    scale: 1
+    start_on_create: true
+  nexus:
+    scale: 1
+    start_on_create: true
+  confluence:
+    scale: 1
+    start_on_create: true
+  postgresql:
+    scale: 1
+    start_on_create: true
+  crowd:
+    scale: 1
+    start_on_create: true
+  sonar:
+    scale: 1
+    start_on_create: true
+  sonarqube-data:
+    scale: 1
+    start_on_create: true
+  bitbucket:
+    scale: 1
+    start_on_create: true
+  jira:
+    scale: 1
+    start_on_create: true
