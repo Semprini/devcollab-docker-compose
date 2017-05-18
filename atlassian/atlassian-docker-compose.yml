@@ -14,7 +14,8 @@ services:
     - 55915:8085/tcp
     - 63565:54663/tcp
     labels:
-      io.rancher.scheduler.affinity:host_label: foo=1
+      io.rancher.scheduler.affinity:host_label_soft: collab=true
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/bamboo
       com.blacklabelops.description: Atlassian Bamboo
       com.blacklabelops.service: bamboo
   nexus:
@@ -25,6 +26,9 @@ services:
     tty: true
     ports:
     - 62897:8081/tcp
+    labels:
+      io.rancher.scheduler.affinity:host_label_soft: collab=true
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/nexus
   confluence:
     image: blacklabelops/confluence
     hostname: confluence
@@ -40,6 +44,8 @@ services:
     - 63220:8090/tcp
     - 57316:8091/tcp
     labels:
+      io.rancher.scheduler.affinity:host_label_soft: collab=true
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/confluence
       com.blacklabelops.description: Atlassian Confluence
       com.blacklabelops.service: confluence
   postgresql:
@@ -60,6 +66,8 @@ services:
     volumes:
     - postgresqldata:/var/lib/postgresql/data
     labels:
+      io.rancher.scheduler.affinity:host_label_soft: collab=true
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/postgresql
       com.blacklabelops.description: PostgreSQL Database Server
       com.blacklabelops.service: postgresql
   crowd:
@@ -80,6 +88,8 @@ services:
     ports:
     - 58495:8095/tcp
     labels:
+      io.rancher.scheduler.affinity:host_label_soft: collab=true
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/crowd
       com.blacklabelops.description: Atlassian Crowd
       com.blacklabelops.service: crowd
   sonar:
@@ -97,6 +107,8 @@ services:
     ports:
     - 51748:9000/tcp
     labels:
+      io.rancher.scheduler.affinity:host_label_soft: collab=true
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/sonar
       io.rancher.container.pull_image: always
       io.rancher.sidekicks: sonarqube-data
   sonarqube-data:
@@ -118,6 +130,8 @@ services:
     ports:
     - 53780:7990/tcp
     labels:
+      io.rancher.scheduler.affinity:host_label_soft: collab=true
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/bitbucket
       com.blacklabelops.description: Atlassian Bitbucket
       com.blacklabelops.service: bitbucket
   CollabLB:
@@ -125,6 +139,8 @@ services:
     ports:
     - 8088:8088/tcp
     labels:
+      io.rancher.scheduler.affinity:host_label_soft: collab=true
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/CollabLB
       io.rancher.container.agent.role: environmentAdmin
       io.rancher.container.create_agent: 'true'
   jira:
@@ -144,5 +160,7 @@ services:
     ports:
     - 65446:8080/tcp
     labels:
+      io.rancher.scheduler.affinity:host_label_soft: collab=true
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/jira
       com.blacklabelops.description: Atlassian Jira
       com.blacklabelops.service: jira
