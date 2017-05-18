@@ -13,6 +13,8 @@ services:
     ports:
     - 55915:8085/tcp
     - 63565:54663/tcp
+    depends_on:
+      - "postgresql"
     labels:
       io.rancher.scheduler.affinity:host_label_soft: collab=true
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
@@ -43,6 +45,8 @@ services:
     ports:
     - 63220:8090/tcp
     - 57316:8091/tcp
+    depends_on:
+      - "postgresql"
     labels:
       io.rancher.scheduler.affinity:host_label_soft: collab=true
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
@@ -88,6 +92,8 @@ services:
     - crowddata:/var/atlassian/crowd
     ports:
     - 58495:8095/tcp
+    depends_on:
+      - "postgresql"
     labels:
       io.rancher.scheduler.affinity:host_label_soft: collab=true
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
@@ -102,11 +108,12 @@ services:
       http_proxy: ''
       https_proxy: ''
     stdin_open: true
-    tty: true
     volumes_from:
     - sonarqube-data
     ports:
     - 51748:9000/tcp
+    depends_on:
+      - "postgresql"
     labels:
       io.rancher.scheduler.affinity:host_label_soft: collab=true
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
@@ -115,7 +122,6 @@ services:
   sonarqube-data:
     image: busybox
     stdin_open: true
-    tty: true
     labels:
       io.rancher.container.start_once: 'true'
   bitbucket:
@@ -160,6 +166,8 @@ services:
     - postgresql:postgresql
     ports:
     - 65446:8080/tcp
+    depends_on:
+      - "postgresql"
     labels:
       io.rancher.scheduler.affinity:host_label_soft: collab=true
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
