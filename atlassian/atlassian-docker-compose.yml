@@ -15,7 +15,7 @@ services:
     - 63565:54663/tcp
     labels:
       io.rancher.scheduler.affinity:host_label_soft: collab=true
-      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/bamboo
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       com.blacklabelops.description: Atlassian Bamboo
       com.blacklabelops.service: bamboo
   nexus:
@@ -28,7 +28,7 @@ services:
     - 62897:8081/tcp
     labels:
       io.rancher.scheduler.affinity:host_label_soft: collab=true
-      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/nexus
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
   confluence:
     image: blacklabelops/confluence
     hostname: confluence
@@ -45,7 +45,7 @@ services:
     - 57316:8091/tcp
     labels:
       io.rancher.scheduler.affinity:host_label_soft: collab=true
-      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/confluence
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       com.blacklabelops.description: Atlassian Confluence
       com.blacklabelops.service: confluence
   postgresql:
@@ -60,6 +60,7 @@ services:
         CREATE DATABASE "bamboo" WITH ENCODING UNICODE LC_COLLATE C LC_CTYPE C TEMPLATE template0 ;
         CREATE DATABASE "confluence" WITH ENCODING UNICODE LC_COLLATE C LC_CTYPE C TEMPLATE template0 ;
         CREATE DATABASE "crowd" WITH ENCODING UNICODE LC_COLLATE C LC_CTYPE C TEMPLATE template0 ;
+        CREATE DATABASE "sonar" WITH ENCODING UNICODE LC_COLLATE C LC_CTYPE C TEMPLATE template0 ;
       POSTGRES_ENCODING: UNICODE
       POSTGRES_PASSWORD: collab
       POSTGRES_USER: collab
@@ -67,7 +68,7 @@ services:
     - postgresqldata:/var/lib/postgresql/data
     labels:
       io.rancher.scheduler.affinity:host_label_soft: collab=true
-      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/postgresql
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       com.blacklabelops.description: PostgreSQL Database Server
       com.blacklabelops.service: postgresql
   crowd:
@@ -89,7 +90,7 @@ services:
     - 58495:8095/tcp
     labels:
       io.rancher.scheduler.affinity:host_label_soft: collab=true
-      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/crowd
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       com.blacklabelops.description: Atlassian Crowd
       com.blacklabelops.service: crowd
   sonar:
@@ -108,7 +109,7 @@ services:
     - 51748:9000/tcp
     labels:
       io.rancher.scheduler.affinity:host_label_soft: collab=true
-      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/sonar
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.container.pull_image: always
       io.rancher.sidekicks: sonarqube-data
   sonarqube-data:
@@ -131,7 +132,7 @@ services:
     - 53780:7990/tcp
     labels:
       io.rancher.scheduler.affinity:host_label_soft: collab=true
-      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/bitbucket
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       com.blacklabelops.description: Atlassian Bitbucket
       com.blacklabelops.service: bitbucket
   CollabLB:
@@ -140,7 +141,7 @@ services:
     - 8088:8088/tcp
     labels:
       io.rancher.scheduler.affinity:host_label_soft: collab=true
-      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/CollabLB
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.container.agent.role: environmentAdmin
       io.rancher.container.create_agent: 'true'
   jira:
@@ -161,6 +162,6 @@ services:
     - 65446:8080/tcp
     labels:
       io.rancher.scheduler.affinity:host_label_soft: collab=true
-      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=collab/jira
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       com.blacklabelops.description: Atlassian Jira
       com.blacklabelops.service: jira
