@@ -1,26 +1,4 @@
 version: '2'
-volumes:
-  jiradata:
-    external: true
-    driver: 'null'
-  bitbucketdata:
-    external: true
-    driver: 'null'
-  crowddata:
-    external: true
-    driver: 'null'
-  postgresqldata:
-    external: true
-    driver: 'null'
-  bamboodata:
-    external: true
-    driver: 'null'
-  nexusdata:
-    external: true
-    driver: 'null'
-  confluencedata:
-    external: true
-    driver: 'null'
 services:
   bamboo:
     image: cptactionhank/atlassian-bamboo
